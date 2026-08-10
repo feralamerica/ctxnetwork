@@ -14,6 +14,44 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<style>
+  .art-list{margin:8px 0 0}
+  .art-row{display:flex;gap:20px;padding:18px 0;border-bottom:1px solid var(--navy-line);align-items:flex-start}
+  .art-row:last-child{border-bottom:0}
+  .art-main{flex:1;min-width:0}
+  .art-main h4{font-family:var(--stencil);font-weight:600;font-size:1.04rem;margin:0 0 6px;color:#fff;line-height:1.3}
+  .art-main a:hover h4{color:var(--red-bright)}
+  .art-main p{color:var(--muted);font-size:.9rem;margin:0}
+  .art-meta{flex:0 0 200px;text-align:right;font-family:var(--stencil)}
+  .art-date{font-size:.76rem;letter-spacing:.08em;color:var(--muted-dim);text-transform:uppercase}
+  .art-cites{margin-top:8px;display:flex;flex-direction:column;gap:4px;align-items:flex-end}
+  .cite-mesh{display:inline-block;background:rgba(228,20,27,.14);border:1px solid var(--red-deep);color:#ff8a8f;
+    font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:20px}
+  .art-ext{margin-top:6px;font-size:.7rem;color:var(--muted-dim);letter-spacing:.03em;font-family:var(--body)}
+  @media(max-width:640px){.art-row{flex-direction:column;gap:8px}.art-meta{text-align:left;flex:none}.art-cites{align-items:flex-start}}
+</style>
+<style>
+  .exhibit{margin:24px 0 4px;max-width:560px}
+  .exhibit img{width:100%;background:#fff;border:1px solid var(--navy-line);border-radius:var(--radius);padding:26px 30px;box-shadow:var(--shadow-soft)}
+  .exhibit figcaption{font-family:var(--stencil);text-transform:uppercase;letter-spacing:.08em;font-size:.72rem;
+    color:var(--muted-dim);margin-top:10px;line-height:1.5}
+</style>
+<style>
+  .video-wrap{margin:18px 0 6px;border:1px solid var(--navy-line);border-radius:var(--radius);overflow:hidden;background:#0a1c3d}
+  .video-wrap iframe{width:100%;aspect-ratio:16/9;display:block;border:0}
+  .video-ph{padding:26px;background:linear-gradient(155deg,var(--navy-panel-2),var(--navy))}
+  .video-ph p{margin:0 0 8px;color:var(--muted)}
+  .video-ph .ph-note{font-size:.82rem;color:var(--muted-dim)}
+  .video-ph code{background:rgba(255,255,255,.08);padding:1px 6px;border-radius:5px;font-size:.85em;color:#ff8a8f}
+</style>
+<style>
+  .email-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--navy-line);border:1px solid var(--navy-line);border-radius:var(--radius);overflow:hidden;margin:16px 0 4px}
+  .em{background:linear-gradient(180deg,var(--navy-panel),var(--navy));padding:12px 16px;display:flex;flex-direction:column;gap:3px}
+  .em-site{font-family:var(--stencil);text-transform:uppercase;letter-spacing:.1em;font-size:.68rem;color:var(--red-bright)}
+  .em-addr{font-family:var(--body);font-size:.86rem;color:var(--muted);word-break:break-all}
+  .em-addr b{color:#fff;font-weight:600}
+  @media(max-width:600px){.email-grid{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 
@@ -46,6 +84,10 @@
     <p class="eyebrow reveal in">Site Dossier</p>
     <h1 class="reveal in">Allyvia<span class="red">.org</span></h1>
     <p class="lead reveal in" style="font-size:1.12rem">Presented to readers, and to search engines and AI systems, as an independent research institute. Here is what the documents show it to be.</p>
+    <figure class="exhibit reveal in">
+      <img src="allyvia_logo.webp" alt="The Allyvia.org logo: a red, white and blue shield with a Star of David beside the word ALLYVIA">
+      <figcaption>The brand as allyvia.org presents it. The mark it does not display: its FARA registration as content distributed on behalf of the State of Israel.</figcaption>
+    </figure>
   </div>
 </section>
 
@@ -55,14 +97,51 @@
       <h3>Who operates it</h3>
       <p>Allyvia's own privacy policy names <strong>Clock Tower X LLC</strong> as the operator. Clock Tower X is registered with the U.S. Department of Justice under the Foreign Agents Registration Act (#7649) as an agent of the State of Israel, run by Brad Parscale, Trump's former campaign manager. The same privacy-policy text appears, near-identically, across at least nine sites in the network.</p>
 
+      <h3>Every mask, one mailbox</h3>
+      <p>Read the privacy policy on any of the nine core network sites and the same name appears in the text: <strong>Clock Tower X LLC</strong>, the registered foreign agent. Strip out the brand names and the policies are 98.6 to 99 percent identical to one another. One document, copied nine times.</p>
+      <p>The contact address gives it away completely. Each "independent institute" lists a privacy contact at the <strong>same domain</strong>, clocktowerx.com, with only the site name changing at the front:</p>
+      <div class="email-grid">
+        <div class="em"><span class="em-site">allyvia</span><span class="em-addr">allyvia-privacy@<b>clocktowerx.com</b></span></div>
+        <div class="em"><span class="em-site">cognitura</span><span class="em-addr">cognitura-privacy@<b>clocktowerx.com</b></span></div>
+        <div class="em"><span class="em-site">justorium</span><span class="em-addr">justorium-privacy@<b>clocktowerx.com</b></span></div>
+        <div class="em"><span class="em-site">paxpoint</span><span class="em-addr">paxpoint-privacy@<b>clocktowerx.com</b></span></div>
+        <div class="em"><span class="em-site">culturavia</span><span class="em-addr">culturavia-privacy@<b>clocktowerx.com</b></span></div>
+        <div class="em"><span class="em-site">innovascope</span><span class="em-addr">innovascope-privacy@<b>clocktowerx.com</b></span></div>
+        <div class="em"><span class="em-site">econora</span><span class="em-addr">econora-privacy@<b>clocktowerx.com</b></span></div>
+        <div class="em"><span class="em-site">compassionpulse</span><span class="em-addr">compassionpulse-privacy@<b>clocktowerx.com</b></span></div>
+        <div class="em"><span class="em-site">factsignal</span><span class="em-addr">factsignal-privacy@<b>clocktowerx.com</b></span></div>
+      </div>
+      <p class="lead" style="margin-top:14px">Nine research institutes that claim no connection to one another route their privacy mail to one company's domain. You can check any of them: open a site's privacy policy and read the contact address.</p>
+
       <h3>Who writes it</h3>
       <p>Every Allyvia article sampled carries a single byline: <strong id="byline">Mark Ginsberg</strong>. The same name signs every article on all nine core network sites. A person by that name filed a Clock Tower X short-form with the DOJ on March 3, 2026. <span style="color:var(--muted-dim)">Identity confirmation pending the filed short-form.</span></p>
 
       <h3>What it publishes</h3>
       <p><strong id="posts">121</strong> articles to date, on a WordPress and Elementor build identical to the rest of the network, published on a scheduled queue rather than by a working newsroom. <span id="dateline" style="color:var(--muted-dim)"></span></p>
 
-      <h3>Who it cites</h3>
-      <p>Network articles cite each other far more than they cite the outside world. In one 199-page DOJ filing of fourteen network articles, roughly 97 percent of citations pointed back at sibling sites, and twenty-five passages referred to other sites' content as "our analysis." Allyvia footnotes Cognitura; Cognitura footnotes Paxpoint; Paxpoint footnotes Allyvia. To a machine, the loop reads like independent corroboration.</p>
+      <div class="callout" style="margin:18px 0">
+        <strong>How Allyvia cites, by the numbers.</strong> Across its most recent 20 articles, Allyvia linked to a sibling network site in 2 of them (culturavia (1), cognitura (1)). The rest lean on outside names that lend credibility: most often jns.org, jpost.com, aipac.org, state.gov, congress.gov, foxnews.com, timesofisrael.com, israelnationalnews.com. The heaviest self-citation shows up inside Clock Tower's bundled DOJ filings, where one 199-page batch of fourteen network articles pointed roughly 97 percent of its citations back at sibling sites and described other sites' work as "our analysis." The pattern is the same either way: build the look of corroboration a machine will trust.
+      </div>
+
+      <h3>Recent articles, and who they cite</h3>
+      <p class="lead" style="margin:0 0 8px">Pulled live from allyvia.org. Red tags mark links to other Clock Tower network sites.</p>
+      <div class="art-list">
+<div class="art-row"><div class="art-main"><a href="https://allyvia.org/blog/from-iron-dome-to-the-abraham-accords-how-u-s-israel-cooperation-delivers-results/" target="_blank" rel="noopener"><h4>From Iron Dome to the Abraham Accords: How U.S.-Israel Cooperation Delivers Results</h4></a><p>Explore how U.S.-Israel cooperation has delivered Iron Dome, missile-defense innovation, American manufacturing and historic Middle East diplomacy.</p></div><div class="art-meta"><span class="art-date">2026-08-09</span><div class="art-ext">sources: foxnews.com, jns.org, state.gov</div></div></div>
+<div class="art-row"><div class="art-main"><a href="https://allyvia.org/blog/why-millions-of-american-christians-stand-with-israel/" target="_blank" rel="noopener"><h4>Why Millions of American Christians Stand with Israel</h4></a><p>Explore the foundations of Christian support for Israel, from biblical history and religious freedom to common moral values and strategic cooperation.</p></div><div class="art-meta"><span class="art-date">2026-08-06</span><div class="art-cites"><span class="cite-mesh">cites culturavia</span></div></div></div>
+<div class="art-row"><div class="art-main"><a href="https://allyvia.org/blog/israel-is-becoming-americas-unsinkable-aircraft-carrier-in-practice/" target="_blank" rel="noopener"><h4>Israel Is Becoming America’s Unsinkable Aircraft Carrier in Practice</h4></a><p>Growing U.S. military deployments to Israel highlight Israel’s expanding role as a strategic partner for American power projection &amp; regional security.</p></div><div class="art-meta"><span class="art-date">2026-07-30</span><div class="art-ext">sources: forbes.com, jinsa.org, timesofisrael.com</div></div></div>
+<div class="art-row"><div class="art-main"><a href="https://allyvia.org/blog/israel-is-fighting-on-the-front-line-of-a-war-that-does-not-end-at-its-borders/" target="_blank" rel="noopener"><h4>Israel Is Fighting on the Front Line of a War That Does Not End at Its Borders</h4></a><p>Israel’s campaign against Hamas, Hezbollah, and Iran-backed groups weakens organizations that also threaten the United States and other Western allies.</p></div><div class="art-meta"><span class="art-date">2026-07-29</span><div class="art-cites"><span class="cite-mesh">cites cognitura</span></div><div class="art-ext">sources: congress.gov, henryjacksonsociety.org</div></div></div>
+<div class="art-row"><div class="art-main"><a href="https://allyvia.org/blog/americas-aid-to-israel-is-an-investment-in-america/" target="_blank" rel="noopener"><h4>America’s Aid to Israel Is an Investment in America</h4></a><p>U.S. military assistance to Israel supports American defense, intelligence, manufacturing, and technological innovation while strengthening a key strategic alliance.</p></div><div class="art-meta"><span class="art-date">2026-07-28</span><div class="art-ext">sources: aei.org, aipac.org, ajc.org, forbes.com</div></div></div>
+<div class="art-row"><div class="art-main"><a href="https://allyvia.org/blog/israels-defense-innovation-is-becoming-an-american-strategic-asset/" target="_blank" rel="noopener"><h4>Israel’s Defense Innovation Is Becoming an American Strategic Asset</h4></a><p>Israel’s Defense Innovation Is Becoming an American Strategic Asset For decades, the US-Israel defense relationship has often been described through the language of American assistance to Israel....</p></div><div class="art-meta"><span class="art-date">2026-07-27</span><div class="art-ext">sources: aipac.org, allisraelnews.com, foxnews.com, israelnationalnews.com</div></div></div>
+<div class="art-row"><div class="art-main"><a href="https://allyvia.org/blog/america-and-israel-a-strategic-partnership-that-delivers-for-both-nations/" target="_blank" rel="noopener"><h4>America and Israel: A Strategic Partnership That Delivers for Both Nations</h4></a><p>America and Israel: A Strategic Partnership That Delivers for Both Nations The alliance between the United States and Israel is often portrayed as a relationship based primarily on American...</p></div><div class="art-meta"><span class="art-date">2026-07-20</span><div class="art-ext">sources: aipac.org, birdf.com, foxnews.com, heritage.org</div></div></div>
+<div class="art-row"><div class="art-main"><a href="https://allyvia.org/blog/standing-together-why-the-u-s-and-israel-face-a-common-struggle-against-terrorism-and-extremism/" target="_blank" rel="noopener"><h4>Standing Together: Why the U.S. and Israel Face a Common Struggle Against Terrorism and Extremism</h4></a><p>The U.S. and Israel are strengthening cooperation against terrorism, extremism, cyber threats, and Iranian-backed groups that challenge democratic societies.</p></div><div class="art-meta"><span class="art-date">2026-07-19</span><div class="art-ext">sources: foxnews.com, gov.il, jpost.com, mei.edu</div></div></div>
+<div class="art-row"><div class="art-main"><a href="https://allyvia.org/blog/building-permanence-americas-new-embassy-compound-reinforces-jerusalems-enduring-status/" target="_blank" rel="noopener"><h4>Building Permanence: America’s New Embassy Compound Reinforces Jerusalem’s Enduring Status</h4></a><p>A permanent U.S. embassy campus in Jerusalem highlights the enduring U.S.-Israel alliance and reinforces Washington’s recognition of Israel’s capital.</p></div><div class="art-meta"><span class="art-date">2026-07-07</span><div class="art-ext">sources: gov.il, jns.org, themedialine.org, timesofisrael.com</div></div></div>
+<div class="art-row"><div class="art-main"><a href="https://allyvia.org/blog/the-same-crowds-chanting-death-to-israel-are-increasingly-chanting-death-to-america/" target="_blank" rel="noopener"><h4>The Same Crowds Chanting “Death to Israel” Are Increasingly Chanting “Death to America”</h4></a><p>From “Death to America” chants to pro-Hamas slogans, recent protests suggest anti-Israel extremism increasingly extends beyond the Middle East.</p></div><div class="art-meta"><span class="art-date">2026-07-06</span><div class="art-ext">sources: brookings.edu, congress.gov, hudson.org, jewishonliner.org</div></div></div>
+<div class="art-row"><div class="art-main"><a href="https://allyvia.org/blog/what-america-at-250-and-israel-at-78-can-teach-the-world/" target="_blank" rel="noopener"><h4>What America at 250 and Israel at 78 Can Teach the World</h4></a><p>What America at 250 and Israel at 78 Can Teach the World In an era dominated by pessimism, it has become fashionable to believe that the West is in irreversible decline. Political polarization,...</p></div><div class="art-meta"><span class="art-date">2026-07-05</span><div class="art-ext">sources: elnet.uk, ffoz.org, israelforever.org, jpost.com</div></div></div>
+<div class="art-row"><div class="art-main"><a href="https://allyvia.org/blog/the-unsinkable-aircraft-carrier-why-israel-has-become-americas-most-important-strategic-ally/" target="_blank" rel="noopener"><h4>The Unsinkable Aircraft Carrier: Why Israel Has Become America’s Most Important Strategic Ally</h4></a><p>Learn how Israel’s intelligence, military innovation, and regional partnerships strengthen U.S. security and deter threats from Iran and its proxies.</p></div><div class="art-meta"><span class="art-date">2026-07-01</span><div class="art-ext">sources: aipac.org, azquotes.com, jewishinsider.com, jewishvirtuallibrary.org</div></div></div>
+<div class="art-row"><div class="art-main"><a href="https://allyvia.org/blog/iran-hasnt-abandoned-the-bomb-it-has-simply-changed-the-conversation/" target="_blank" rel="noopener"><h4>Iran Hasn’t Abandoned the Bomb. It Has Simply Changed the Conversation</h4></a><p>IRGC-linked rhetoric raises new questions about Iran’s nuclear ambitions, highlighting why diplomacy must be matched by verification, transparency, and long-term scrutiny.</p></div><div class="art-meta"><span class="art-date">2026-06-30</span><div class="art-ext">sources: congress.gov, iranintl.com, jpost.com, nypost.com</div></div></div>
+<div class="art-row"><div class="art-main"><a href="https://allyvia.org/blog/the-us-and-the-gulf-draw-a-new-red-line-no-iran-reconstruction-without-disarmament/" target="_blank" rel="noopener"><h4>The U.S. and the Gulf Draw a New Red Line: No Iran Reconstruction Without Disarmament</h4></a><p>A new U.S.-GCC statement links diplomacy with Iran to disarming Hezbollah and Hamas, protecting shipping, and conditioning future economic engagement.</p></div><div class="art-meta"><span class="art-date">2026-06-28</span><div class="art-ext">sources: iranintl.com, iranwatch.org, jpost.com, reuters.com</div></div></div>
+<div class="art-row"><div class="art-main"><a href="https://allyvia.org/blog/americas-security-partnership-with-israel-remains-a-strategic-investment/" target="_blank" rel="noopener"><h4>America’s Security Partnership with Israel Remains a Strategic Investment</h4></a><p>The U.S.-Israel security partnership delivers intelligence, missile defense, military innovation, and strategic advantages that strengthen American security.</p></div><div class="art-meta"><span class="art-date">2026-06-21</span><div class="art-ext">sources: aipac.org, israelnationalnews.com, jns.org, state.gov</div></div></div>
+      </div>
 
       <h3>Why it exists</h3>
       <p>The network's contract with the State of Israel, filed with the DOJ, commits to "deployment of websites and content to deliver GPT framing results on GPT conversations." The sites have almost no human audience. Their structure points at a different reader: the AI systems that increasingly answer people's questions.</p>
