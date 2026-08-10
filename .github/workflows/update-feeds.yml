@@ -9,7 +9,7 @@ jobs:
   feeds:
     runs-on: ubuntu-latest
     env:
-      YT_CHANNEL_ID: "UCXXXXXXXXXXXXXXXXXXXXXX"   # ONE-TIME: your @feralamerica channel ID (UC...)
+      YT_CHANNEL_ID: "UCZCMfPUFytpl1MugojZOzZQ"   # ONE-TIME: your @feralamerica channel ID (UC...)
       SUBSTACK: "https://feralamerica.substack.com"
       SECTION_MATCH: "project-545"                # section slug to keep
     steps:
