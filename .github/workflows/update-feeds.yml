@@ -1,0 +1,76 @@
+name: Update feeds (Substack + YouTube)
+on:
+  schedule:
+    - cron: "23 7 * * *"   # daily 07:23 UTC
+  workflow_dispatch: {}
+permissions:
+  contents: write
+jobs:
+  feeds:
+    runs-on: ubuntu-latest
+    env:
+      YT_CHANNEL_ID: "UCXXXXXXXXXXXXXXXXXXXXXX"   # ONE-TIME: your @feralamerica channel ID (UC...)
+      SUBSTACK: "https://feralamerica.substack.com"
+      SECTION_MATCH: "project-545"                # section slug to keep
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build feeds JSON
+        run: |
+          python3 - <<'PY'
+          import urllib.request, json, re, html, os
+          UA={'User-Agent':'Mozilla/5.0 (feed-bot)'}
+          def get(u):
+              return urllib.request.urlopen(urllib.request.Request(u,headers=UA),timeout=40).read().decode('utf-8','ignore')
+
+          # ---- Substack: pull main feed, keep Project 545 section, rich summaries ----
+          sub=get(os.environ['SUBSTACK'].rstrip('/')+'/feed')
+          items=re.findall(r'<item>(.*?)</item>', sub, re.S)
+          match=os.environ['SECTION_MATCH'].lower()
+          arts=[]
+          for it in items:
+              def tag(t):
+                  m=re.search(r'<%s>(?:<!\[CDATA\[)?(.*?)(?:\]\]>)?</%s>'%(t,t), it, re.S)
+                  return html.unescape(m.group(1).strip()) if m else ''
+              link=tag('link'); title=tag('title'); date=tag('pubDate')
+              # section detection: substack puts section in <category> or the link path
+              cats=' '.join(re.findall(r'<category>(?:<!\[CDATA\[)?(.*?)(?:\]\]>)?</category>', it, re.S)).lower()
+              body=tag('description') or tag('content:encoded')
+              text=re.sub(r'<[^>]+>',' ',body); text=re.sub(r'\s+',' ',text).strip()
+              summary=(text[:280]+'...') if len(text)>280 else text
+              keep = (match in cats) or (match in link.lower())
+              if keep and title and link:
+                  arts.append(dict(title=title,link=link,date=date,summary=summary))
+          # if section tagging isn't present, fall back to all posts (better to show than miss)
+          if not arts:
+              for it in items:
+                  def tag(t):
+                      m=re.search(r'<%s>(?:<!\[CDATA\[)?(.*?)(?:\]\]>)?</%s>'%(t,t), it, re.S)
+                      return html.unescape(m.group(1).strip()) if m else ''
+                  link=tag('link'); title=tag('title')
+                  if title and link and 'substack.com' in link:
+                      body=tag('description'); text=re.sub(r'<[^>]+>',' ',body); text=re.sub(r'\s+',' ',text).strip()
+                      arts.append(dict(title=title,link=link,date=tag('pubDate'),summary=(text[:280]+'...') if len(text)>280 else text))
+          arts=arts[:25]
+
+          # ---- YouTube: latest 5 via RSS (no key) ----
+          vids=[]
+          cid=os.environ['YT_CHANNEL_ID']
+          if cid and not cid.startswith('UCXXXX'):
+              try:
+                  x=get('https://www.youtube.com/feeds/videos.xml?channel_id='+cid)
+                  for m in re.findall(r'<entry>(.*?)</entry>', x, re.S)[:5]:
+                      vid=re.search(r'<yt:videoId>([^<]+)', m)
+                      ttl=re.search(r'<title>([^<]+)', m)
+                      if vid: vids.append(dict(id=vid.group(1), title=html.unescape(ttl.group(1)) if ttl else ''))
+              except Exception as e: print('yt err',e)
+
+          out=dict(articles=arts, videos=vids, updated=__import__('datetime').datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'))
+          json.dump(out, open('feeds.json','w'), indent=1)
+          print('articles:',len(arts),'videos:',len(vids))
+          PY
+      - name: Commit if changed
+        run: |
+          git config user.name "feed-bot"; git config user.email "actions@users.noreply.github.com"
+          git add feeds.json
+          git diff --cached --quiet || git commit -m "Update feeds.json (auto)"
+          git push
