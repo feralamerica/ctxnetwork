@@ -19,12 +19,16 @@ jobs:
           python3 - <<'PY'
           import urllib.request, json, re, html, os, datetime, traceback
 
-          UA={'User-Agent':'Mozilla/5.0 (feed-bot)'}
+          # Browser-like headers so Substack/YouTube don't 403 the GitHub runner
+          UA={
+            'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36',
+            'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'Accept-Language':'en-US,en;q=0.9',
+          }
           def get(u):
               return urllib.request.urlopen(urllib.request.Request(u,headers=UA),timeout=40).read().decode('utf-8','ignore')
 
-          articles=[]
-          videos=[]
+          articles=[]; videos=[]
 
           # ---------- Substack ----------
           try:
@@ -38,16 +42,13 @@ jobs:
                   link=tag(it,'link'); title=tag(it,'title'); date=tag(it,'pubDate')
                   body=tag(it,'description') or tag(it,'content:encoded')
                   text=re.sub(r'<[^>]+>',' ',body); text=re.sub(r'\s+',' ',text).strip()
-                  summary=(text[:280]+'...') if len(text)>280 else text
-                  return dict(title=title,link=link,date=date,summary=summary)
-              # first pass: keep only section matches
+                  return dict(title=title,link=link,date=date,summary=(text[:280]+'...') if len(text)>280 else text)
               matched=[]
               for it in items:
                   cats=' '.join(re.findall(r'<category>(?:<!\[CDATA\[)?(.*?)(?:\]\]>)?</category>', it, re.S)).lower()
                   link=tag(it,'link').lower()
                   if match and (match in cats or match in link):
                       matched.append(build(it))
-              # fallback: if nothing matched the section, show all posts (better than empty)
               if not matched:
                   for it in items:
                       link=tag(it,'link')
@@ -55,8 +56,7 @@ jobs:
                           matched.append(build(it))
               articles=[a for a in matched if a.get('title') and a.get('link')][:25]
           except Exception as e:
-              print('Substack step error (continuing):', e)
-              traceback.print_exc()
+              print('Substack step error (continuing):', repr(e)); traceback.print_exc()
 
           # ---------- YouTube ----------
           try:
@@ -66,17 +66,13 @@ jobs:
                   for m in re.findall(r'<entry>(.*?)</entry>', x, re.S)[:5]:
                       vid=re.search(r'<yt:videoId>([^<]+)', m)
                       ttl=re.search(r'<title>([^<]+)', m)
-                      if vid:
-                          videos.append(dict(id=vid.group(1), title=html.unescape(ttl.group(1)) if ttl else ''))
+                      if vid: videos.append(dict(id=vid.group(1), title=html.unescape(ttl.group(1)) if ttl else ''))
               else:
-                  print('YouTube channel ID not set yet; skipping videos.')
+                  print('YouTube channel ID not set; skipping videos.')
           except Exception as e:
-              print('YouTube step error (continuing):', e)
-              traceback.print_exc()
+              print('YouTube step error (continuing):', repr(e)); traceback.print_exc()
 
-          # ---------- always write a valid file ----------
-          out=dict(articles=articles, videos=videos,
-                   updated=datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'))
+          out=dict(articles=articles, videos=videos, updated=datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'))
           json.dump(out, open('feeds.json','w'), indent=1)
           print('WROTE feeds.json  articles=%d videos=%d' % (len(articles), len(videos)))
           PY
