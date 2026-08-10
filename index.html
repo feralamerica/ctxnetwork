@@ -133,16 +133,43 @@ fetch('metrics.json',{cache:'no-store'}).then(r=>r.json()).then(m=>{
  });
 }).catch(()=>{});
 
-fetch('feeds.json',{cache:'no-store'}).then(r=>r.json()).then(f=>{
+function renderArticles(arts){
  const box=document.getElementById('articles');
- if(f.articles&&f.articles.length){
-  box.innerHTML=f.articles.map(a=>'<div class="art"><h3>'+a.title+'</h3><div class="date">'+(a.date||'')+'</div><p>'+(a.summary||'')+'</p><a class="more" href="'+a.link+'" target="_blank" rel="noopener">Read the full piece on Feral America →</a></div>').join('');
- } else { box.innerHTML='<p class="sub">Articles will appear here after the next feed sync. Read everything now at <a href="https://feralamerica.substack.com/s/project-545">feralamerica.substack.com</a>.</p>'; }
+ if(arts&&arts.length){
+  box.innerHTML=arts.map(a=>'<div class="art"><h3>'+a.title+'</h3><div class="date">'+(a.date||'')+'</div><p>'+(a.summary||'')+'</p><a class="more" href="'+a.link+'" target="_blank" rel="noopener">Read the full piece on Feral America →</a></div>').join('');
+ } else { box.innerHTML='<p class="sub">Read the latest at <a href="https://feralamerica.substack.com/s/project-545">feralamerica.substack.com/s/project-545</a>.</p>'; }
+}
+function renderVideos(vids){
  const v=document.getElementById('videos');
- if(f.videos&&f.videos.length){
-  v.innerHTML=f.videos.slice(0,3).map(x=>'<iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/'+x.id+'" title="'+(x.title||'video')+'" allowfullscreen></iframe>').join('');
- } else { v.innerHTML='<p class="sub">Latest videos appear here after sync. <a href="https://youtube.com/@feralamerica">Watch on YouTube →</a></p>'; }
-}).catch(()=>{});
+ if(vids&&vids.length){
+  v.innerHTML=vids.slice(0,3).map(x=>'<iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/'+x.id+'" title="'+(x.title||'video')+'" allowfullscreen></iframe>').join('');
+ } else { v.innerHTML='<p class="sub"><a href="https://youtube.com/@feralamerica">Watch on YouTube →</a></p>'; }
+}
+// Live browser-side Substack fetch (works even when the server-side Action is blocked)
+function liveSubstack(){
+ const FEED='https://feralamerica.substack.com/feed';
+ const API='https://api.rss2json.com/v1/api.json?rss_url='+encodeURIComponent(FEED);
+ fetch(API).then(r=>r.json()).then(d=>{
+  if(!d||!d.items){return;}
+  const arts=d.items.filter(it=>{
+   const s=((it.categories||[]).join(' ')+' '+(it.link||'')).toLowerCase();
+   return s.indexOf('project-545')>-1 || s.indexOf('project 545')>-1;
+  }).map(it=>{
+   let txt=(it.description||'').replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim();
+   return {title:it.title, link:it.link, date:(it.pubDate||'').slice(0,10), summary:txt.length>280?txt.slice(0,280)+'...':txt};
+  });
+  // fallback: if the section tag isn't present, show all recent posts
+  const list = arts.length? arts : d.items.slice(0,10).map(it=>{
+   let txt=(it.description||'').replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim();
+   return {title:it.title, link:it.link, date:(it.pubDate||'').slice(0,10), summary:txt.length>280?txt.slice(0,280)+'...':txt};
+  });
+  renderArticles(list.slice(0,25));
+ }).catch(()=>{});
+}
+fetch('feeds.json',{cache:'no-store'}).then(r=>r.json()).then(f=>{
+ if(f.articles&&f.articles.length){ renderArticles(f.articles); } else { liveSubstack(); }
+ renderVideos(f.videos||[]);
+}).catch(()=>{ liveSubstack(); renderVideos([]); });
 </script>
 </body>
 </html>
