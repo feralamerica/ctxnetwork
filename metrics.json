@@ -1,17 +1,53 @@
 {
  "sites": {
-  "allyvia": {"posts": 121, "byline": "Mark Ginsberg", "xref": {}},
-  "cognitura": {"posts": 84, "byline": "Mark Ginsberg", "xref": {}},
-  "justorium": {"posts": 73, "byline": "Mark Ginsberg", "xref": {}},
-  "paxpoint": {"posts": 98, "byline": "Mark Ginsberg", "xref": {}},
-  "culturavia": {"posts": 46, "byline": "Mark Ginsberg", "xref": {}},
-  "innovascope": {"posts": 28, "byline": "Mark Ginsberg", "xref": {}},
-  "econora": {"posts": 15, "byline": "Mark Ginsberg", "xref": {}},
-  "compassionpulse": {"posts": 21, "byline": "Mark Ginsberg", "xref": {}},
-  "factsignal": {"posts": 93, "byline": "Mark Ginsberg", "xref": {"allyvia":1,"cognitura":1,"justorium":1,"paxpoint":1,"culturavia":1,"innovascope":1,"econora":1,"compassionpulse":1}}
+  "allyvia": {
+   "posts": 0,
+   "byline": null,
+   "xref": {}
+  },
+  "cognitura": {
+   "posts": 0,
+   "byline": null,
+   "xref": {}
+  },
+  "justorium": {
+   "posts": 0,
+   "byline": null,
+   "xref": {}
+  },
+  "paxpoint": {
+   "posts": 0,
+   "byline": null,
+   "xref": {}
+  },
+  "culturavia": {
+   "posts": 0,
+   "byline": null,
+   "xref": {}
+  },
+  "innovascope": {
+   "posts": 0,
+   "byline": null,
+   "xref": {}
+  },
+  "econora": {
+   "posts": 0,
+   "byline": null,
+   "xref": {}
+  },
+  "compassionpulse": {
+   "posts": 0,
+   "byline": null,
+   "xref": {}
+  },
+  "factsignal": {
+   "posts": 0,
+   "byline": null,
+   "xref": {}
+  }
  },
- "total_posts": 579,
- "unique_bylines": ["Mark Ginsberg"],
+ "total_posts": 0,
+ "unique_bylines": [],
  "site_count": 9,
- "updated": "2026-08-07"
+ "updated": "2026-08-10"
 }
