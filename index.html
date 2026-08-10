@@ -16,14 +16,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <style>
-  /* ctxnetwork readability overrides */
-  .page-hero h1{font-size:clamp(2.8rem,7vw,5.2rem);line-height:.92;}
-  .page-hero .red{color:#ff3b42;}  /* brighter red for dark-bg legibility */
-  .page-hero .eyebrow{font-size:.82rem;letter-spacing:.22em;color:#ff5157;}
-  .page-hero .lead{font-size:1.05rem;max-width:60ch;color:var(--muted);}
+  /* ctxnetwork hero hierarchy + readability */
+  .page-hero h1{font-size:clamp(3rem,8vw,6rem);line-height:.9;margin:.05em 0 .15em;}
+  .page-hero .red{color:#ff3b42;}
+  .page-hero .hero-tag{font-family:var(--stencil);text-transform:uppercase;letter-spacing:.14em;
+    font-weight:600;font-size:clamp(1rem,2.4vw,1.5rem);color:#ff5157;margin:0 0 18px;}
+  .page-hero .lead{font-size:clamp(1rem,1.6vw,1.12rem);max-width:62ch;color:var(--muted);}
+  .page-hero .back-link{font-size:.8rem;}
   .section-head .title{font-size:clamp(1.8rem,4vw,2.8rem);}
   .section-head .eyebrow{font-size:.8rem;letter-spacing:.2em;color:#ff5157;}
-  /* dossier card headings a touch larger */
   #siteGrid .card h3{font-size:1.2rem;}
 </style>
 </head>
@@ -57,9 +58,9 @@
   </div>
   <div class="wrap">
     <a class="back-link" href="https://stayferalamerica.com/project545.html">← Part of the Project 545 investigation</a>
-    <p class="eyebrow reveal in">The Clock Tower X Network</p>
-    <h1 class="reveal in">Eleven Masks,<br><span class="red">One Author</span></h1>
-    <p class="lead reveal in" style="font-size:1.15rem">Eleven websites present themselves as independent research institutes. They share one WordPress build, one byline, and one operator: a firm registered with the U.S. Department of Justice as a foreign agent of the State of Israel. Here is the documented map.</p>
+    <h1 class="reveal in">The Clock<br>Tower X <span class="red">Network</span></h1>
+    <p class="hero-tag reveal in">Eleven Masks · One Author · One Foreign Agent</p>
+    <p class="lead reveal in">Eleven websites present themselves as independent research institutes. They share one WordPress build, one byline, and one operator: a firm registered with the U.S. Department of Justice as a foreign agent of the State of Israel. Here is the documented map.</p>
     <div class="hero-cta reveal in" style="margin-top:24px">
       <a class="btn btn-red" href="#dossiers">See the Eleven Sites →</a>
       <a class="btn btn-ghost" href="https://project545.org" target="_blank" rel="noopener">Open the Full Tracker</a>
