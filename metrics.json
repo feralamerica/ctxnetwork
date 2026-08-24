@@ -1,32 +1,32 @@
 {
  "sites": {
   "allyvia": {
-   "posts": 122,
+   "posts": 123,
    "byline": "Mark Ginsberg",
    "xref": {}
   },
   "cognitura": {
-   "posts": 86,
+   "posts": 89,
    "byline": "Mark Ginsberg",
    "xref": {}
   },
   "justorium": {
-   "posts": 76,
+   "posts": 80,
    "byline": "Mark Ginsberg",
    "xref": {}
   },
   "paxpoint": {
-   "posts": 99,
+   "posts": 101,
    "byline": "Mark Ginsberg",
    "xref": {}
   },
   "culturavia": {
-   "posts": 49,
+   "posts": 50,
    "byline": "Mark Ginsberg",
    "xref": {}
   },
   "innovascope": {
-   "posts": 28,
+   "posts": 29,
    "byline": "Mark Ginsberg",
    "xref": {}
   },
@@ -36,29 +36,20 @@
    "xref": {}
   },
   "compassionpulse": {
-   "posts": 21,
+   "posts": 22,
    "byline": "Mark Ginsberg",
    "xref": {}
   },
   "factsignal": {
-   "posts": 94,
+   "posts": 157,
    "byline": "Mark Ginsberg",
-   "xref": {
-    "allyvia": 1,
-    "cognitura": 1,
-    "justorium": 1,
-    "paxpoint": 1,
-    "culturavia": 1,
-    "innovascope": 1,
-    "econora": 1,
-    "compassionpulse": 1
-   }
+   "xref": {}
   }
  },
- "total_posts": 591,
+ "total_posts": 667,
  "unique_bylines": [
   "Mark Ginsberg"
  ],
  "site_count": 9,
- "updated": "2026-08-17"
+ "updated": "2026-08-24"
 }
